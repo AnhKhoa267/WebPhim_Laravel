@@ -14,7 +14,7 @@
                 @foreach ($phimhot as $key => $hot)
                     <article class="thumb grid-item post-38498">
                         <div class="halim-item">
-                            <a class="halim-thumb" href="{{ route('movie') }}" title="{{ $hot->title }}">
+                            <a class="halim-thumb" href="{{ route('movie', [$hot->slug]) }}" title="{{ $hot->title }}">
                                 <figure><img class="lazy img-responsive" src="{{ asset('uploads/movie/' . $hot->image) }}"
                                         alt="{{ $hot->title }}" title="{{ $hot->title }}"></figure>
                                 <span class="status">HD</span><span class="episode"><i class="fa fa-play"
@@ -23,7 +23,7 @@
                                 <div class="halim-post-title-box">
                                     <div class="halim-post-title ">
                                         <p class="entry-title">{{ $hot->title }}</p>
-                                        <p class="original_title">Monkey King: The One And Only</p>
+                                        <p class="original_title">{{ $hot->name_eng }}</p>
                                     </div>
                                 </div>
                             </a>
@@ -76,7 +76,7 @@
                         @foreach ($cate_home->movie->take(12) as $key => $mov)
                             <article class="col-md-3 col-sm-3 col-xs-6 thumb grid-item post-37606">
                                 <div class="halim-item">
-                                    <a class="halim-thumb" href="chitiet.php">
+                                    <a class="halim-thumb" href="{{ route('movie', $mov->slug) }}">
                                         <figure><img class="lazy img-responsive"
                                                 src="{{ asset('uploads/movie/' . $mov->image) }}"
                                                 title="{{ $mov->title }}">
@@ -87,7 +87,7 @@
                                         <div class="halim-post-title-box">
                                             <div class="halim-post-title ">
                                                 <p class="entry-title">{{ $mov->title }}</p>
-                                                <p class="original_title">My Roommate Is a Gumiho</p>
+                                                <p class="original_title">{{ $mov->name_eng }}</p>
                                             </div>
                                         </div>
                                     </a>
