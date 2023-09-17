@@ -5,6 +5,7 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
+                    <a href="{{ route('movie.index') }}" class="btn btn-primary">Liệt kê phim</a>
                     <div class="card-header">{{ __('Quản lý phim') }}</div>
 
                     <div class="card-body">
@@ -25,6 +26,13 @@
                                 'placeholder' => 'Nhập dữ liệu...',
                                 'id' => 'slug',
                                 'onkeyup' => 'ChangeToSlug()',
+                            ]) !!}
+                        </div>
+                        <div class="form-group">
+                            {!! Form::label('Tên Tiếng Anh', 'Tên Tiếng Anh', []) !!}
+                            {!! Form::text('name_eng', isset($movie) ? $movie->name_eng : '', [
+                                'class' => 'form-control',
+                                'placeholder' => 'Nhập dữ liệu...',
                             ]) !!}
                         </div>
                         <div class="form-group">
@@ -63,11 +71,15 @@
                             {!! Form::select('genre_id', $genre, isset($movie) ? $movie->genre : '', ['class' => 'form-control']) !!}
                         </div>
                         <div class="form-group">
+                            {!! Form::label('hot', 'Hot', []) !!}
+                            {!! Form::select('phim_hot', ['1' => 'Phim Hot', '0' => 'Không'], isset($movie) ? $movie->phim_hot : '', ['class' => 'form-control']) !!}
+                        </div>
+                        <div class="form-group">
                             {!! Form::label('Image', 'Image', []) !!}
                             <br>
                             {!! Form::file('image', ['class' => 'form-control-file']) !!}
                             @if (isset($movie))
-                                <img width="20%" src="{{asset('uploads/movie/'.$movie->image)}}">
+                                <img width="20%" src="{{ asset('uploads/movie/' . $movie->image) }}">
                             @endif
                         </div>
                         @if (!isset($movie))
@@ -78,54 +90,6 @@
                         {!! Form::close() !!}
                     </div>
                 </div>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Title</th>
-                            <th scope="col">Slug</th>
-                            <th scope="col">Image</th>
-                            <th scope="col">Description</th>
-                            <th scope="col">Active/Hide</th>
-                            <th scope="col">Category</th>
-                            <th scope="col">Genre</th>
-                            <th scope="col">Country</th>
-                            <th scope="col">Manage</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($list as $key => $cate)
-                            <tr>
-                                <th scope="row">{{ $key }}</th>
-                                <td>{{ $cate->title }}</td>
-                                <td>{{ $cate->slug }}</td>
-                                <td><img width="50px" src="{{ asset('uploads/movie/' . $cate->image) }}"></td>
-                                <td>{{ $cate->description }}</td>
-                                <td>
-                                    @if ($cate->status)
-                                        Hiển thị
-                                    @else
-                                        Ẩn
-                                    @endif
-                                </td>
-                                <td>{{ $cate->category->title }}</td>
-                                <td>{{ $cate->genre->title }}</td>
-                                <td>{{ $cate->country->title }}</td>
-                                <td>
-                                    {!! Form::open([
-                                        'method' => 'DELETE',
-                                        'route' => ['movie.destroy', $cate->id],
-                                        'onsubmit' => 'return confirm("Bạn có chắc chắn muốn xoá")',
-                                    ]) !!}
-                                    {!! Form::submit('Xoá', ['class' => 'btn btn-danger']) !!}
-                                    {!! Form::close() !!}
-                                    <a href="{{ route('movie.edit', $cate->id) }}" class="btn btn-warning">Sửa</a>
-                                </td>
-                            </tr>
-                        @endforeach
-
-                    </tbody>
-                </table>
             </div>
         </div>
     </div>

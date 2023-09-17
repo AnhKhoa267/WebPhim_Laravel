@@ -15,7 +15,8 @@ class MovieController extends Controller
      */
     public function index()
     {
-        //
+        $list = Movie::with('category','country','genre')->orderBy('id', 'DESC')->get();
+        return view('admincp.movie.index', compact('list'));
     }
 
     /**
@@ -26,8 +27,7 @@ class MovieController extends Controller
         $category = Category::pluck('title','id');
         $genre = Genre::pluck('title','id');
         $country = Country::pluck('title','id');
-        $list = Movie::with('category','country','genre')->orderBy('id', 'DESC')->get();
-        return view('admincp.movie.form', compact('list','category','genre','country'));
+        return view('admincp.movie.form', compact('category','genre','country'));
     }
 
     /**
@@ -38,6 +38,8 @@ class MovieController extends Controller
         $data = $request->all();
         $movie = new Movie();
         $movie->title = $data['title'];
+        $movie->name_eng = $data['name_eng'];
+        $movie->phim_hot = $data['phim_hot'];
         $movie->slug = $data['slug'];
         $movie->description = $data['description'];
         $movie->status = $data['status'];
@@ -75,9 +77,8 @@ class MovieController extends Controller
         $category = Category::pluck('title','id');
         $genre = Genre::pluck('title','id');
         $country = Country::pluck('title','id');
-        $list = Movie::with('category','country','genre')->orderBy('id', 'DESC')->get();
         $movie = Movie::find($id);
-        return view('admincp.movie.form', compact('list','category','genre','country','movie'));
+        return view('admincp.movie.form', compact('category','genre','country','movie'));
     }
 
     /**
@@ -88,6 +89,8 @@ class MovieController extends Controller
         $data = $request->all();
         $movie = Movie::find($id);
         $movie->title = $data['title'];
+        $movie->name_eng = $data['name_eng'];
+        $movie->phim_hot = $data['phim_hot'];
         $movie->slug = $data['slug'];
         $movie->description = $data['description'];
         $movie->status = $data['status'];

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Sep 13, 2023 at 03:10 PM
+-- Generation Time: Sep 17, 2023 at 05:21 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -32,19 +32,20 @@ CREATE TABLE `categories` (
   `title` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `status` int NOT NULL,
-  `slug` varchar(255) COLLATE utf8mb4_general_ci NOT NULL
+  `slug` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `position` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `categories`
 --
 
-INSERT INTO `categories` (`id`, `title`, `description`, `status`, `slug`) VALUES
-(1, 'Phim mới', 'Phim mới cập nhật hằng ngày', 1, 'phim-moi'),
-(3, 'Phim chiếu rạp', 'Phim chiếu rạp cập nhật hằng ngày', 1, 'phim-chieu-rap'),
-(4, 'Phim thuyết minh', 'Phim thuyết minh cập nhật hằng ngày', 1, 'phim-thuyet-minh'),
-(5, 'Phim bộ', 'Phim bộ cập nhật hằng ngày', 1, 'phim-bo'),
-(8, 'Phim lẻ mới', 'Phim lẻ mới cập nhật hằng ngày', 1, 'phim-le-moi');
+INSERT INTO `categories` (`id`, `title`, `description`, `status`, `slug`, `position`) VALUES
+(1, 'Phim mới', 'Phim mới cập nhật hằng ngày', 1, 'phim-moi', 0),
+(3, 'Phim chiếu rạp', 'Phim chiếu rạp cập nhật hằng ngày', 1, 'phim-chieu-rap', 1),
+(4, 'Phim thuyết minh', 'Phim thuyết minh cập nhật hằng ngày', 1, 'phim-thuyet-minh', 2),
+(5, 'Phim bộ', 'Phim bộ cập nhật hằng ngày', 1, 'phim-bo', 3),
+(8, 'Phim lẻ mới', 'Phim lẻ mới cập nhật hằng ngày', 1, 'phim-le-moi', 4);
 
 -- --------------------------------------------------------
 
@@ -65,8 +66,8 @@ CREATE TABLE `countries` (
 --
 
 INSERT INTO `countries` (`id`, `title`, `description`, `status`, `slug`) VALUES
-(1, 'Phim Việt Nam', 'Phim Việt Nam cập nhật thường xuyên', 1, 'phim-viet-nam'),
-(2, 'Phim Mỹ', 'Phim Mỹ cập nhật thường xuyên', 1, 'phim-my');
+(1, 'Việt Nam', 'Phim Việt Nam cập nhật thường xuyên', 1, 'viet-nam'),
+(2, 'Mỹ', 'Phim Mỹ cập nhật thường xuyên', 1, 'my');
 
 -- --------------------------------------------------------
 
@@ -117,7 +118,8 @@ CREATE TABLE `genres` (
 
 INSERT INTO `genres` (`id`, `title`, `description`, `status`, `slug`) VALUES
 (1, 'Tâm lý', 'Tâm lý cập nhật thường xuyên', 1, 'tam-ly'),
-(3, 'Hành động', 'Hành động cập nhật thường xuyên', 1, 'hanh-dong');
+(3, 'Hành động', 'Hành động cập nhật thường xuyên', 1, 'hanh-dong'),
+(4, 'Tình cảm', 'Tình cảm cập nhật thường xuyên', 1, 'tinh-cam');
 
 -- --------------------------------------------------------
 
@@ -151,13 +153,30 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 CREATE TABLE `movies` (
   `id` int NOT NULL,
   `title` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `slug` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `name_eng` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
   `description` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `status` int NOT NULL,
   `image` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `category_id` int NOT NULL,
   `genre_id` int NOT NULL,
-  `country_id` int NOT NULL
+  `country_id` int NOT NULL,
+  `phim_hot` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `movies`
+--
+
+INSERT INTO `movies` (`id`, `title`, `slug`, `name_eng`, `description`, `status`, `image`, `category_id`, `genre_id`, `country_id`, `phim_hot`) VALUES
+(18, 'Movistar R7 Esport', 'movistar-r7-esport', 'Movistar R7 Esport', 'R7 vả GAM biến VCS thành khu vực CONCARD', 1, 'download8771.png', 3, 1, 1, 1),
+(31, 'Ganyu', 'ganyu', 'Ganyu Genshin Impact', 'Ganyu cập nhật mới nhất', 1, '900226-Ganyu-Genshin-Impact-Genshin-Impact-Atdan-anime-girls2759.jpg', 1, 1, 1, 0),
+(32, 'GAM Esport', 'gam-esport', 'Gam Esport', 'GAM trở lại cực mạnh vả WILDCARD', 1, 'GAMesportslogo3217.png', 3, 3, 1, 1),
+(33, 'Raiden Shogun', 'raiden-shogun', 'Raiden Shogun Genshin Impact', 'Raiden Shogun cập nhật mới nhất', 1, 'E-vTGvcXIAMxyD52748.jpg', 5, 1, 1, 1),
+(34, 'Genshin impact ss1', 'genshin-impact-ss1', 'Genshin Impact', 'Genshin impact cập nhật mới nhất', 1, 'hu_tao keqing shenhe  xiaoshan_jiang yun_jin6898.jpg', 8, 4, 1, 1),
+(35, 'Genshin impact full character', 'genshin-impact-full-character', 'Genshin Impact ova', 'Genshin impact full character cập nhật mới nhất', 1, '1304411-Aether-Genshin-Impact-Albedo-Genshin-Impact-Barbara7578.jpg', 4, 1, 1, 1),
+(36, 'Genshin impact ss2', 'genshin-impact-ss2', 'Genshin Impact ss2', 'Genshin impact ss2 cập nhật mới nhất', 1, 'amber ganyu jean lumine9179.jpg', 8, 4, 1, 0),
+(37, 'Hu Tao', 'hu-tao', 'Hu Tao Genshin Impact', 'Hu Tao cập nhật mới nhất', 1, 'hu_tao_ver_0_1_png_by_jay_256_dfqcgsw1175.png', 1, 3, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -308,13 +327,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `countries`
 --
 ALTER TABLE `countries`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `episodes`
@@ -332,7 +351,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `genres`
 --
 ALTER TABLE `genres`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `migrations`
@@ -344,7 +363,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `movies`
 --
 ALTER TABLE `movies`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
