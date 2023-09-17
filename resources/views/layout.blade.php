@@ -118,7 +118,7 @@
                                     aria-haspopup="true">Thể Loại <span class="caret"></span></a>
                                 <ul role="menu" class=" dropdown-menu">
                                     @foreach ($genre as $key => $gen)
-                                        <li><a title="{{$gen->title}}" href="{{ route('genre', $gen->slug) }}">{{$gen->title}}</a></li>
+                                        <li><a title="{{$gen->title}}" href="{{ route('genre', [$gen->slug]) }}">{{$gen->title}}</a></li>
                                     @endforeach
                                 </ul>
                             </li>
@@ -127,13 +127,13 @@
                                     aria-haspopup="true">Quốc Gia <span class="caret"></span></a>
                                 <ul role="menu" class=" dropdown-menu">
                                     @foreach ($country as $key => $count)
-                                        <li><a title="{{$count->title}}" href="{{ route('country', $count->slug) }}">{{$count->title}}</a></li>
+                                        <li><a title="{{$count->title}}" href="{{ route('country', [$count->slug]) }}">{{$count->title}}</a></li>
                                     @endforeach
                                 </ul>
                             </li>
 
                             @foreach ($category as $key => $cate)
-                                <li class="mega"><a title="{{$cate->title}}" href="{{ route('category', $cate->slug) }}">{{$cate->title}}</a>
+                                <li class="mega"><a title="{{$cate->title}}" href="{{ route('category', [$cate->slug]) }}">{{$cate->title}}</a>
                                 </li>
                             @endforeach
 
