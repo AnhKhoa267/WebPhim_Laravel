@@ -24,7 +24,7 @@
                                 'class' => 'form-control',
                                 'placeholder' => 'Nhập dữ liệu...',
                                 'id' => 'slug',
-                                'onkeyup' => 'ChangeToSlug()'
+                                'onkeyup' => 'ChangeToSlug()',
                             ]) !!}
                         </div>
                         <div class="form-group">
@@ -46,7 +46,9 @@
                         </div>
                         <div class="form-group">
                             {!! Form::label('active', 'Active', []) !!}
-                            {!! Form::select('status', ['1' => 'Hiển thị', '0' => 'Ẩn'], isset($category) ? $category->status: '', ['class' => 'form-control']) !!}
+                            {!! Form::select('status', ['1' => 'Hiển thị', '0' => 'Ẩn'], isset($category) ? $category->status : '', [
+                                'class' => 'form-control',
+                            ]) !!}
                         </div>
                         @if (!isset($category))
                             {!! Form::submit('Thêm dữ liệu', ['class' => 'btn btn-success']) !!}
@@ -67,9 +69,9 @@
                             <th scope="col">Manage</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody class="order_position">
                         @foreach ($list as $key => $cate)
-                            <tr>
+                            <tr id="{{ $cate->id }}">
                                 <th scope="row">{{ $key }}</th>
                                 <td>{{ $cate->title }}</td>
                                 <td>{{ $cate->description }}</td>

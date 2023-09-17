@@ -71,7 +71,8 @@
                                         <a href="" rel="nofollow" title="Liani Samuel">Liani Samuel</a>, <a
                                             href="" rel="nofollow" title="Michelle Lee">Michelle Lee</a>, <a
                                             href="" rel="nofollow" title="Nanna Blondell">Nanna Blondell</a>, <a
-                                            href="" rel="nofollow" title="O-T Fagbenle">O-T Fagbenle</a></li>
+                                            href="" rel="nofollow" title="O-T Fagbenle">O-T Fagbenle</a>
+                                    </li>
                                 </ul>
                                 <div class="movie-trailer hidden"></div>
                             </div>
