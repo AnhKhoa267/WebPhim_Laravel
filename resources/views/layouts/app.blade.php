@@ -104,6 +104,23 @@
     <script type="text/javascript">
         let table = new DataTable('#tablephim');
     </script>
+    <script>
+        $('.select-year').change(function() {
+            var year = $(this).find(':selected').val();
+            var id_phim = $(this).attr('id');
+            // alert(year);
+            // alert(id_phim);
+            $.ajax({
+                url: "{{url('/update-year-phim')}}",
+                method: "GET",
+                data: {year:year, id_phim:id_phim},
+                success:function()
+                    {
+                        alert('Thay đổi năm phim theo năm '+ year + ' thành công');
+                    }
+            });
+        })
+    </script>
     <script type="text/javascript">
         function ChangeToSlug() {
             var slug;
@@ -135,6 +152,7 @@
             document.getElementById('convert_slug').value = slug;
         }
     </script>
+    
     <script type="text/javascript">
         $('.order_position').sortable({
             placeholder: 'ui-state-highlight',

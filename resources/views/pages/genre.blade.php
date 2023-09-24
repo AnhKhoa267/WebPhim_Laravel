@@ -21,25 +21,42 @@
                 </div>
                 <div class="halim_box">
                     @foreach ($movie as $key => $mov)
-                    <article class="col-md-3 col-sm-3 col-xs-6 thumb grid-item post-37606">
-                        <div class="halim-item">
-                            <a class="halim-thumb" href="{{ route('movie', $mov->slug) }}">
-                                <figure><img class="lazy img-responsive"
-                                        src="{{ asset('uploads/movie/' . $mov->image) }}"
-                                        title="{{ $mov->title }}">
-                                </figure>
-                                <span class="status">TẬP 15</span><span class="episode"><i class="fa fa-play"
-                                        aria-hidden="true"></i>Vietsub</span>
-                                <div class="icon_overlay"></div>
-                                <div class="halim-post-title-box">
-                                    <div class="halim-post-title ">
-                                        <p class="entry-title">{{ $mov->title }}</p>
-                                        <p class="original_title">{{ $mov->name_eng }}</p>
+                        <article class="col-md-3 col-sm-3 col-xs-6 thumb grid-item post-37606">
+                            <div class="halim-item">
+                                <a class="halim-thumb" href="{{ route('movie', $mov->slug) }}">
+                                    <figure><img class="lazy img-responsive"
+                                            src="{{ asset('uploads/movie/' . $mov->image) }}" title="{{ $mov->title }}">
+                                    </figure>
+                                    <span class="status">
+                                        @if ($mov->resolution == 0)
+                                            HD
+                                        @elseif ($mov->resolution == 1)
+                                            SD
+                                        @elseif ($mov->resolution == 2)
+                                            HDCam
+                                        @elseif ($mov->resolution == 3)
+                                            Cam
+                                        @else
+                                            FullHD
+                                        @endif
+                                    </span>
+                                    <span class="episode"><i class="fa fa-play" aria-hidden="true"></i>
+                                        @if ($mov->phude == 0)
+                                            Phụ đề
+                                        @else
+                                            Thuyết minh
+                                        @endif
+                                    </span>
+                                    <div class="icon_overlay"></div>
+                                    <div class="halim-post-title-box">
+                                        <div class="halim-post-title ">
+                                            <p class="entry-title">{{ $mov->title }}</p>
+                                            <p class="original_title">{{ $mov->name_eng }}</p>
+                                        </div>
                                     </div>
-                                </div>
-                            </a>
-                        </div>
-                    </article>
+                                </a>
+                            </div>
+                        </article>
                     @endforeach
                 </div>
                 <div class="clearfix"></div>
@@ -53,7 +70,7 @@
                         <li><a class="next page-numbers" href=""><i class="hl-down-open rotate-right"></i></a>
                         </li>
                     </ul> --}}
-                    {!! $movie->links("pagination::bootstrap-4") !!}
+                    {!! $movie->links('pagination::bootstrap-4') !!}
                 </div>
             </section>
         </main>

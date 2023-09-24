@@ -118,7 +118,8 @@
                                     aria-haspopup="true">Thể Loại <span class="caret"></span></a>
                                 <ul role="menu" class=" dropdown-menu">
                                     @foreach ($genre as $key => $gen)
-                                        <li><a title="{{$gen->title}}" href="{{ route('genre', [$gen->slug]) }}">{{$gen->title}}</a></li>
+                                        <li><a title="{{ $gen->title }}"
+                                                href="{{ route('genre', [$gen->slug]) }}">{{ $gen->title }}</a></li>
                                     @endforeach
                                 </ul>
                             </li>
@@ -127,13 +128,27 @@
                                     aria-haspopup="true">Quốc Gia <span class="caret"></span></a>
                                 <ul role="menu" class=" dropdown-menu">
                                     @foreach ($country as $key => $count)
-                                        <li><a title="{{$count->title}}" href="{{ route('country', [$count->slug]) }}">{{$count->title}}</a></li>
+                                        <li><a title="{{ $count->title }}"
+                                                href="{{ route('country', [$count->slug]) }}">{{ $count->title }}</a>
+                                        </li>
                                     @endforeach
+                                </ul>
+                            </li>
+                            <li class="mega dropdown">
+                                <a title="Năm" href="#" data-toggle="dropdown" class="dropdown-toggle"
+                                    aria-haspopup="true">Năm <span class="caret"></span></a>
+                                <ul role="menu" class=" dropdown-menu">
+                                    @for ($year=2000; $year<=2023; $year++)
+                                        <li><a title="{{ $year }}"
+                                                href="{{ url('nam/'.$year) }}">{{ $year }}</a>
+                                        </li>
+                                    @endfor
                                 </ul>
                             </li>
 
                             @foreach ($category as $key => $cate)
-                                <li class="mega"><a title="{{$cate->title}}" href="{{ route('category', [$cate->slug]) }}">{{$cate->title}}</a>
+                                <li class="mega"><a title="{{ $cate->title }}"
+                                        href="{{ route('category', [$cate->slug]) }}">{{ $cate->title }}</a>
                                 </li>
                             @endforeach
 

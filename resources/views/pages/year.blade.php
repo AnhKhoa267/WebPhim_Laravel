@@ -1,141 +1,79 @@
-@extends('layout') {{-- mở rông chèn thêm layout --}}
+@extends('layout')
 @section('content')
     <div class="row container" id="wrapper">
         <div class="halim-panel-filter">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <div class="yoast_breadcrumb hidden-xs"><span><span><a href="">Phim thuộc năm</a> »
+                                    <span class="breadcrumb_last" aria-current="page">{{ $year }}</span></span></span></div>
+                    </div>
+                </div>
+            </div>
             <div id="ajax-filter" class="panel-collapse collapse" aria-expanded="true" role="menu">
                 <div class="ajax"></div>
             </div>
         </div>
-        <div id="halim_related_movies-2xx" class="wrap-slider">
-            <div class="section-bar clearfix">
-                <h3 class="section-title"><span>PHIM HOT</span></h3>
-            </div>
-            <div id="phimhot_slide" class="owl-carousel owl-theme related-film">
-                @foreach ($phimhot as $key => $hot)
-                    <article class="thumb grid-item post-38498">
-                        <div class="halim-item">
-                            <a class="halim-thumb" href="{{ route('movie', [$hot->slug]) }}" title="{{ $hot->title }}">
-                                <figure><img class="lazy img-responsive" src="{{ asset('uploads/movie/' . $hot->image) }}"
-                                        alt="{{ $hot->title }}" title="{{ $hot->title }}"></figure>
-                                <span class="status">
-                                    @if ($hot->resolution == 0)
-                                        HD
-                                    @elseif ($hot->resolution == 1)
-                                        SD
-                                    @elseif ($hot->resolution == 2)
-                                        HDCam
-                                    @elseif ($hot->resolution == 3)
-                                        Cam
-                                    @else
-                                        FullHD
-                                    @endif
-                                </span>
-                                <span class="episode"><i class="fa fa-play" aria-hidden="true"></i>
-                                    @if ($hot->phude == 0)
-                                        Phụ đề
-                                    @else
-                                        Thuyết minh
-                                    @endif
-                                </span>
-                                <div class="icon_overlay"></div>
-                                <div class="halim-post-title-box">
-                                    <div class="halim-post-title ">
-                                        <p class="entry-title">{{ $hot->title }}</p>
-                                        <p class="original_title">{{ $hot->name_eng }}</p>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </article>
-                @endforeach
-            </div>
-            <script>
-                $(document).ready(function($) {
-                    var owl = $('#phimhot_slide');
-                    owl.owlCarousel({
-                        loop: true,
-                        margin: 4,
-                        autoplay: true,
-                        autoplayTimeout: 4000,
-                        autoplayHoverPause: true,
-                        nav: true,
-                        navText: ['<i class="hl-down-open rotate-left"></i>',
-                            '<i class="hl-down-open rotate-right"></i>'
-                        ],
-                        responsiveClass: true,
-                        responsive: {
-                            0: {
-                                items: 2
-                            },
-                            480: {
-                                items: 3
-                            },
-                            600: {
-                                items: 5
-                            },
-                            1000: {
-                                items: 5
-                            }
-                        }
-                    })
-                });
-            </script>
-        </div>
-
         <main id="main-contents" class="col-xs-12 col-sm-12 col-md-8">
-            @foreach ($category_home as $key => $cate_home)
-                <section id="halim-advanced-widget-2">
-                    <div class="section-heading">
-                        <a href="danhmuc.php" title="Phim Bộ">
-                            <span class="h-text">{{ $cate_home->title }}</span>
-                        </a>
-                    </div>
-                    <div id="halim-advanced-widget-2-ajax-box" class="halim_box">
-                        @foreach ($cate_home->movie->take(12) as $key => $mov)
-                            <article class="col-md-3 col-sm-3 col-xs-6 thumb grid-item post-37606">
-                                <div class="halim-item">
-                                    <a class="halim-thumb" href="{{ route('movie', $mov->slug) }}">
-                                        <figure><img class="lazy img-responsive"
-                                                src="{{ asset('uploads/movie/' . $mov->image) }}"
-                                                title="{{ $mov->title }}">
-                                        </figure>
-                                        <span class="status">
-                                            @if ($mov->resolution == 0)
-                                                HD
-                                            @elseif ($mov->resolution == 1)
-                                                SD
-                                            @elseif ($mov->resolution == 2)
-                                                HDCam
-                                            @elseif ($mov->resolution == 3)
-                                                Cam
-                                            @else
-                                                FullHD
-                                            @endif
-                                        </span>
-                                        <span class="episode"><i class="fa fa-play" aria-hidden="true"></i>
-                                            @if ($mov->phude == 0)
-                                                Phụ đề
-                                            @else
-                                                Thuyết minh
-                                            @endif
-                                        </span>
-                                        <div class="icon_overlay"></div>
-                                        <div class="halim-post-title-box">
-                                            <div class="halim-post-title ">
-                                                <p class="entry-title">{{ $mov->title }}</p>
-                                                <p class="original_title">{{ $mov->name_eng }}</p>
-                                            </div>
+            <section>
+                <div class="section-bar clearfix">
+                    <h1 class="section-title"><span>Năm {{ $year }}</span></h1>
+                </div>
+                <div class="halim_box">
+                    @foreach ($movie as $key => $mov)
+                        <article class="col-md-3 col-sm-3 col-xs-6 thumb grid-item post-37606">
+                            <div class="halim-item">
+                                <a class="halim-thumb" href="{{ route('movie', $mov->slug) }}">
+                                    <figure><img class="lazy img-responsive"
+                                            src="{{ asset('uploads/movie/' . $mov->image) }}" title="{{ $mov->title }}">
+                                    </figure>
+                                    <span class="status">
+                                        @if ($mov->resolution == 0)
+                                            HD
+                                        @elseif ($mov->resolution == 1)
+                                            SD
+                                        @elseif ($mov->resolution == 2)
+                                            HDCam
+                                        @elseif ($mov->resolution == 3)
+                                            Cam
+                                        @else
+                                            FullHD
+                                        @endif
+                                    </span>
+                                    <span class="episode"><i class="fa fa-play" aria-hidden="true"></i>
+                                        @if ($mov->phude == 0)
+                                            Phụ đề
+                                        @else
+                                            Thuyết minh
+                                        @endif
+                                    </span>
+                                    <div class="icon_overlay"></div>
+                                    <div class="halim-post-title-box">
+                                        <div class="halim-post-title ">
+                                            <p class="entry-title">{{ $mov->title }}</p>
+                                            <p class="original_title">{{ $mov->name_eng }}</p>
                                         </div>
-                                    </a>
-                                </div>
-                            </article>
-                        @endforeach
-                    </div>
-                </section>
+                                    </div>
+                                </a>
+                            </div>
+                        </article>
+                    @endforeach
+                </div>
                 <div class="clearfix"></div>
-            @endforeach
+                <div class="text-center">
+                    {{-- <ul class='page-numbers'>
+                        <li><span aria-current="page" class="page-numbers current">1</span></li>
+                        <li><a class="page-numbers" href="">2</a></li>
+                        <li><a class="page-numbers" href="">3</a></li>
+                        <li><span class="page-numbers dots">&hellip;</span></li>
+                        <li><a class="page-numbers" href="">55</a></li>
+                        <li><a class="next page-numbers" href=""><i class="hl-down-open rotate-right"></i></a>
+                        </li>
+                    </ul> --}}
+                    {!! $movie->links('pagination::bootstrap-4') !!}
+                </div>
+            </section>
         </main>
-
         <aside id="sidebar" class="col-xs-12 col-sm-12 col-md-4">
             <div id="halim_tab_popular_videos-widget-7" class="widget halim_tab_popular_videos-widget">
                 <div class="section-bar clearfix">
