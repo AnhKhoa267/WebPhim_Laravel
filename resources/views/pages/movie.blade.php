@@ -33,9 +33,8 @@
                         </div>
                         <div class="movie_info col-xs-12">
                             <div class="movie-poster col-md-3">
-                                <img class="movie-thumb"
-                                    src="https://images2-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&gadget=a&no_expand=1&refresh=604800&url=https://1.bp.blogspot.com/-fL7o9nefEPc/YOk_YIB6QRI/AAAAAAAAJn8/hahCLlgRq4AFc8O4YeKhpb5zncixXAF0wCLcBGAsYHQ/s320/images.jpg"
-                                    alt="GÓA PHỤ ĐEN">
+                                <img class="movie-thumb" src="{{ asset('uploads/movie/' . $movie->image) }}"
+                                    alt="{{ $movie->title }}">
                                 <div class="bwa-content">
                                     <div class="loader"></div>
                                     <a href="{{ route('watch') }}" class="bwac-btn">
@@ -49,9 +48,28 @@
                                     {{ $movie->title }}</h1>
                                 <h2 class="movie-title title-2" style="font-size: 12px;">{{ $movie->name_eng }}</h2>
                                 <ul class="list-info-group">
-                                    <li class="list-info-group-item"><span>Trạng Thái</span> : <span
-                                            class="quality">HD</span><span class="episode">Vietsub</span></li>
-                                    <li class="list-info-group-item"><span>Thời lượng</span> : 133 Phút</li>
+                                    <li class="list-info-group-item"><span>Trạng Thái</span> : <span class="quality">
+                                            @if ($movie->resolution == 0)
+                                                HD
+                                            @elseif ($movie->resolution == 1)
+                                                SD
+                                            @elseif ($movie->resolution == 2)
+                                                HDCam
+                                            @elseif ($movie->resolution == 3)
+                                                Cam
+                                            @else
+                                                FullHD
+                                            @endif
+                                        </span>
+                                        <span class="episode">
+                                            @if ($movie->phude == 0)
+                                                Phụ đề
+                                            @else
+                                                Thuyết minh
+                                            @endif
+                                        </span>
+                                    </li>
+                                    <li class="list-info-group-item"><span>Thời lượng</span> : {{ $movie->thoiluong }}</li>
                                     <li class="list-info-group-item"><span>Thể loại</span> : <a
                                             href="{{ route('genre', [$movie->genre->slug]) }}"
                                             rel="category tag">{{ $movie->genre->title }}</a></li>
@@ -79,6 +97,28 @@
                             </article>
                         </div>
                     </div>
+                    {{-- Tags Phim --}}
+                    <div class="section-bar clearfix">
+                        <h2 class="section-title"><span style="color:#ffed4d">Tags phim</span></h2>
+                    </div>
+                    <div class="entry-content htmlwrap clearfix">
+                        <div class="video-item halim-entry-box">
+                            <article id="post-38424" class="item-content">
+                                @if ($movie->tags != NULL)
+                                    @php
+                                        $tags = array();
+                                        $tags = explode(',', $movie->tags);
+                                    @endphp
+
+                                    @foreach ($tags as $key => $tag)
+                                        <a href="{{url('tag/'.$tag)}}">{{ $tag }}</a>
+                                    @endforeach
+                                @else
+                                    {{ $movie->title }}
+                                @endif
+                            </article>
+                        </div>
+                    </div>
                 </div>
             </section>
             <section class="related-movies">
@@ -88,24 +128,44 @@
                     </div>
                     <div id="halim_related_movies-2" class="owl-carousel owl-theme related-film">
                         @foreach ($related as $key => $hot)
-                    <article class="thumb grid-item post-38498">
-                        <div class="halim-item">
-                            <a class="halim-thumb" href="{{ route('movie', [$hot->slug]) }}" title="{{ $hot->title }}">
-                                <figure><img class="lazy img-responsive" src="{{ asset('uploads/movie/' . $hot->image) }}"
-                                        alt="{{ $hot->title }}" title="{{ $hot->title }}"></figure>
-                                <span class="status">HD</span><span class="episode"><i class="fa fa-play"
-                                        aria-hidden="true"></i>Vietsub</span>
-                                <div class="icon_overlay"></div>
-                                <div class="halim-post-title-box">
-                                    <div class="halim-post-title ">
-                                        <p class="entry-title">{{ $hot->title }}</p>
-                                        <p class="original_title">{{ $hot->name_eng }}</p>
-                                    </div>
+                            <article class="thumb grid-item post-38498">
+                                <div class="halim-item">
+                                    <a class="halim-thumb" href="{{ route('movie', [$hot->slug]) }}"
+                                        title="{{ $hot->title }}">
+                                        <figure><img class="lazy img-responsive"
+                                                src="{{ asset('uploads/movie/' . $hot->image) }}"
+                                                alt="{{ $hot->title }}" title="{{ $hot->title }}"></figure>
+                                        <span class="status">
+                                            @if ($hot->resolution == 0)
+                                                HD
+                                            @elseif ($hot->resolution == 1)
+                                                SD
+                                            @elseif ($hot->resolution == 2)
+                                                HDCam
+                                            @elseif ($hot->resolution == 3)
+                                                Cam
+                                            @else
+                                                FullHD
+                                            @endif
+                                        </span>
+                                        <span class="episode"><i class="fa fa-play" aria-hidden="true"></i>
+                                            @if ($hot->phude == 0)
+                                                Phụ đề
+                                            @else
+                                                Thuyết minh
+                                            @endif
+                                        </span>
+                                        <div class="icon_overlay"></div>
+                                        <div class="halim-post-title-box">
+                                            <div class="halim-post-title ">
+                                                <p class="entry-title">{{ $hot->title }}</p>
+                                                <p class="original_title">{{ $hot->name_eng }}</p>
+                                            </div>
+                                        </div>
+                                    </a>
                                 </div>
-                            </a>
-                        </div>
-                    </article>
-                @endforeach
+                            </article>
+                        @endforeach
 
                     </div>
                     <script>
