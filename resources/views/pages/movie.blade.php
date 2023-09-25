@@ -5,12 +5,21 @@
             <div class="panel-heading">
                 <div class="row">
                     <div class="col-xs-6">
-                        <div class="yoast_breadcrumb hidden-xs"><span><span><a
-                                        href="{{ route('category', [$movie->category->slug]) }}">{{ $movie->category->title }}</a>
-                                    » <span><a
-                                            href="{{ route('country', [$movie->country->slug]) }}">{{ $movie->country->title }}</a>
-                                        » <span class="breadcrumb_last"
-                                            aria-current="page">{{ $movie->title }}</span></span></span></span></div>
+                        <div class="yoast_breadcrumb hidden-xs">
+                            <span>
+                                <a href="{{ route('homepage') }}"> Trang chủ </a>
+                                »
+                                <span>
+                                    <a href="{{ route('category', [$movie->category->slug]) }}">{{ $movie->category->title }}</a>
+                                    »
+                                    <span>
+                                        <a href="{{ route('country', [$movie->country->slug]) }}">{{ $movie->country->title }}</a>
+                                        »
+                                        <span class="breadcrumb_last" aria-current="page">{{ $movie->title }}</span>
+                                    </span>
+                                </span>
+                            </span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -104,14 +113,14 @@
                     <div class="entry-content htmlwrap clearfix">
                         <div class="video-item halim-entry-box">
                             <article id="post-38424" class="item-content">
-                                @if ($movie->tags != NULL)
+                                @if ($movie->tags != null)
                                     @php
-                                        $tags = array();
+                                        $tags = [];
                                         $tags = explode(',', $movie->tags);
                                     @endphp
 
                                     @foreach ($tags as $key => $tag)
-                                        <a href="{{url('tag/'.$tag)}}">{{ $tag }}</a>
+                                        <a href="{{ url('tag/' . $tag) }}">{{ $tag }}</a>
                                     @endforeach
                                 @else
                                     {{ $movie->title }}

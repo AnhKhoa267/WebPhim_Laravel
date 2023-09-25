@@ -25,6 +25,7 @@
                             <th scope="col">Ngày tạo</th>
                             <th scope="col">Ngày cập nhật</th>
                             <th scope="col">Năm</th>
+                            <th scope="col">Top Views</th>
                             <th scope="col">Manage</th>
                         </tr>
                     </thead>
@@ -78,7 +79,16 @@
                                 <td>{{ $cate->ngaytao }}</td>
                                 <td>{{ $cate->ngaycapnhat }}</td>
                                 <td>
-                                    {!! Form::selectYear('year', 2000, 2023, isset($cate->year) ? $cate->year : '', ['class'=>'select-year', 'id'=>$cate->id]) !!}
+                                    {!! Form::selectYear('year', 2000, 2023, isset($cate->year) ? $cate->year : '', [
+                                        'class' => 'select-year',
+                                        'id' => $cate->id,
+                                    ]) !!}
+                                </td>
+                                <td>
+                                    {!! Form::select('topview', ['0' => 'Ngày', '1' => 'Tuần', '2' => 'Tháng'], isset($cate->topview) ? $cate->topview : '', [
+                                        'class' => 'select-topview',
+                                        'id' => $cate->id,
+                                    ]) !!}
                                 </td>
                                 <td>
                                     {!! Form::open([

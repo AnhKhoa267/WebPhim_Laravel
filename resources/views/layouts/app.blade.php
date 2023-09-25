@@ -120,6 +120,28 @@
                     }
             });
         })
+        $('.select-topview').change(function() {
+            var topview = $(this).find(':selected').val();
+            var id_phim = $(this).attr('id');
+            // alert(year);
+            // alert(id_phim);
+            if (topview==0) {
+                var text = 'Ngày';
+            }else if (topview==1) {
+                var text = 'Tuần';
+            } else {
+                var text = 'Tháng';
+            }
+            $.ajax({
+                url: "{{url('/update-topview-phim')}}",
+                method: "GET",
+                data: {topview:topview, id_phim:id_phim},
+                success:function()
+                    {
+                        alert('Thay đổi phim theo topview '+ text + ' thành công');
+                    }
+            });
+        })
     </script>
     <script type="text/javascript">
         function ChangeToSlug() {
@@ -152,7 +174,7 @@
             document.getElementById('convert_slug').value = slug;
         }
     </script>
-    
+
     <script type="text/javascript">
         $('.order_position').sortable({
             placeholder: 'ui-state-highlight',
