@@ -9,6 +9,7 @@
     <meta content="VN" name="geo.region" />
     <meta name="DC.language" scheme="utf-8" content="vi" />
     <meta name="language" content="Việt Nam">
+    <meta name="csrf_token" content="{{ csrf_token() }}" />
     <link rel="shortcut icon"
         href="https://www.pngkey.com/png/detail/360-3601772_your-logo-here-your-company-logo-here-png.png"
         type="image/x-icon" />
@@ -138,9 +139,9 @@
                                 <a title="Năm" href="#" data-toggle="dropdown" class="dropdown-toggle"
                                     aria-haspopup="true">Năm <span class="caret"></span></a>
                                 <ul role="menu" class=" dropdown-menu">
-                                    @for ($year=2000; $year<=2023; $year++)
+                                    @for ($year = 2000; $year <= 2023; $year++)
                                         <li><a title="{{ $year }}"
-                                                href="{{ url('nam/'.$year) }}">{{ $year }}</a>
+                                                href="{{ url('nam/' . $year) }}">{{ $year }}</a>
                                         </li>
                                     @endfor
                                 </ul>
@@ -194,6 +195,44 @@
     <script type='text/javascript' src='{{ asset('js/bootstrap.min.js?ver=5.7.2') }}' id='bootstrap-js'></script>
     <script type='text/javascript' src='{{ asset('js/owl.carousel.min.js?ver=5.7.2') }}' id='carousel-js'></script>
     <script type='text/javascript' src='{{ asset('js/halimtheme-core.min.js?ver=1626273138') }}' id='halim-init-js'>
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $.ajax({
+                url: "{{ url('/filter-topview-default') }}",
+                method: "GET",
+
+                success: function(data) {
+                    $('#show_data_default').html(data);
+                }
+            });
+
+            $('.filter-sidebar').click(function() {
+                var href = $(this).attr('href');
+                if (href == '#ngay') {
+                    var value = 0;
+                } else if (href == '#tuan') {
+                    var value = 1;
+                } else {
+                    var value = 2;
+                }
+                $.ajax({
+                    url: "{{ url('/filter-topview-phim') }}",
+                    method: "POST",
+                    data: {
+                        value: value
+                    },
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content')
+                    },
+                    success: function(data) {
+                        $('#halim-ajax-popular-post-default').css("display", "none");
+                        $('#show_data').html(data);
+                    }
+                });
+            })
+        })
     </script>
     <style>
         #overlay_mb {
