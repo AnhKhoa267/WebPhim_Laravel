@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Sep 17, 2023 at 05:21 AM
+-- Generation Time: Oct 29, 2023 at 12:37 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -153,6 +153,7 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 CREATE TABLE `movies` (
   `id` int NOT NULL,
   `title` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `thoiluong` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `slug` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `name_eng` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
   `description` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
@@ -161,22 +162,32 @@ CREATE TABLE `movies` (
   `category_id` int NOT NULL,
   `genre_id` int NOT NULL,
   `country_id` int NOT NULL,
-  `phim_hot` int NOT NULL
+  `phim_hot` int NOT NULL,
+  `resolution` int DEFAULT '0',
+  `phude` int NOT NULL DEFAULT '0',
+  `ngaytao` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `ngaycapnhat` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `year` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `tags` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `topview` int DEFAULT NULL,
+  `season` varchar(50) COLLATE utf8mb4_general_ci DEFAULT '0',
+  `trailer` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `movies`
 --
 
-INSERT INTO `movies` (`id`, `title`, `slug`, `name_eng`, `description`, `status`, `image`, `category_id`, `genre_id`, `country_id`, `phim_hot`) VALUES
-(18, 'Movistar R7 Esport', 'movistar-r7-esport', 'Movistar R7 Esport', 'R7 vả GAM biến VCS thành khu vực CONCARD', 1, 'download8771.png', 3, 1, 1, 1),
-(31, 'Ganyu', 'ganyu', 'Ganyu Genshin Impact', 'Ganyu cập nhật mới nhất', 1, '900226-Ganyu-Genshin-Impact-Genshin-Impact-Atdan-anime-girls2759.jpg', 1, 1, 1, 0),
-(32, 'GAM Esport', 'gam-esport', 'Gam Esport', 'GAM trở lại cực mạnh vả WILDCARD', 1, 'GAMesportslogo3217.png', 3, 3, 1, 1),
-(33, 'Raiden Shogun', 'raiden-shogun', 'Raiden Shogun Genshin Impact', 'Raiden Shogun cập nhật mới nhất', 1, 'E-vTGvcXIAMxyD52748.jpg', 5, 1, 1, 1),
-(34, 'Genshin impact ss1', 'genshin-impact-ss1', 'Genshin Impact', 'Genshin impact cập nhật mới nhất', 1, 'hu_tao keqing shenhe  xiaoshan_jiang yun_jin6898.jpg', 8, 4, 1, 1),
-(35, 'Genshin impact full character', 'genshin-impact-full-character', 'Genshin Impact ova', 'Genshin impact full character cập nhật mới nhất', 1, '1304411-Aether-Genshin-Impact-Albedo-Genshin-Impact-Barbara7578.jpg', 4, 1, 1, 1),
-(36, 'Genshin impact ss2', 'genshin-impact-ss2', 'Genshin Impact ss2', 'Genshin impact ss2 cập nhật mới nhất', 1, 'amber ganyu jean lumine9179.jpg', 8, 4, 1, 0),
-(37, 'Hu Tao', 'hu-tao', 'Hu Tao Genshin Impact', 'Hu Tao cập nhật mới nhất', 1, 'hu_tao_ver_0_1_png_by_jay_256_dfqcgsw1175.png', 1, 3, 1, 0);
+INSERT INTO `movies` (`id`, `title`, `thoiluong`, `slug`, `name_eng`, `description`, `status`, `image`, `category_id`, `genre_id`, `country_id`, `phim_hot`, `resolution`, `phude`, `ngaytao`, `ngaycapnhat`, `year`, `tags`, `topview`, `season`, `trailer`) VALUES
+(18, 'Movistar R7 Esport', '133 phút', 'movistar-r7-esport', 'Movistar R7 Esport', 'R7 vả GAM biến VCS thành khu vực CONCARD', 1, 'download8771.png', 3, 1, 1, 1, 0, 0, '2023-09-20 09:54:41', '2023-09-20 09:55:41', '2017', NULL, 2, '0', NULL),
+(31, 'Ganyu', '133 phút', 'ganyu', 'Ganyu Genshin Impact', 'Ganyu cập nhật mới nhất', 1, '900226-Ganyu-Genshin-Impact-Genshin-Impact-Atdan-anime-girls2759.jpg', 1, 1, 1, 0, 0, 0, '2023-09-22 09:54:41', '2023-09-22 09:55:41', '2021', NULL, 1, '0', NULL),
+(32, 'GAM Esport', '133 phút', 'gam-esport', 'Gam Esport', 'GAM trở lại cực mạnh vả WILDCARD', 1, 'GAMesportslogo3217.png', 3, 3, 1, 1, 0, 0, '2023-09-01 09:54:41', '2023-09-01 09:55:41', '2014', NULL, 0, '0', NULL),
+(33, 'Raiden Shogun', '24 phút / 1 tập', 'raiden-shogun', 'Raiden Shogun Genshin Impact', 'Raiden Shogun cập nhật mới nhất', 1, 'E-vTGvcXIAMxyD52748.jpg', 1, 1, 1, 1, 0, 0, '2023-09-21 09:54:41', '2023-09-21 19:44:26', '2022', NULL, 1, '0', NULL),
+(34, 'Genshin impact ss1', '133 phút', 'genshin-impact-ss1', 'Genshin Impact', 'Genshin impact cập nhật mới nhất', 1, 'hu_tao keqing shenhe  xiaoshan_jiang yun_jin6898.jpg', 8, 4, 1, 1, 0, 0, '2023-08-21 09:54:41', '2023-08-21 09:55:41', '2021', NULL, 0, '0', NULL),
+(35, 'Genshin impact full character', '133 phút', 'genshin-impact-full-character', 'Genshin Impact ova', 'Genshin impact full character cập nhật mới nhất', 1, '1304411-Aether-Genshin-Impact-Albedo-Genshin-Impact-Barbara7578.jpg', 4, 1, 1, 1, 0, 0, '2023-09-18 09:54:41', '2023-09-18 09:55:41', '2020', NULL, 2, '0', NULL),
+(36, 'Genshin impact ss2', '133 phút', 'genshin-impact-ss2', 'Genshin Impact ss2', 'Genshin impact ss2 cập nhật mới nhất', 1, 'amber ganyu jean lumine9179.jpg', 8, 4, 1, 0, 0, 0, '2023-09-02 09:54:41', '2023-09-02 09:55:41', '2021', NULL, 0, '0', NULL),
+(37, 'Hu Tao', '133 phút', 'hu-tao', 'Hu Tao Genshin Impact', 'Hu Tao cập nhật mới nhất', 1, 'hu_tao_ver_0_1_png_by_jay_256_dfqcgsw1175.png', 1, 3, 1, 0, 0, 0, '2023-09-20 08:54:41', '2023-09-20 08:55:41', '2020', NULL, 2, '0', NULL),
+(38, 'Bóng Ma Anh Quốc', '90 phút / 1 tập', 'bong-ma-anh-quoc', 'Peaky Blinders', 'Bóng ma Anh Quốc là một bộ phim chính kịch truyền hình tội phạm của Anh, được sản xuất vào năm 2013 bởi đạo diễn Steven Knight. Loạt phim lấy bối cảnh tại thành phố Birmingham, kể về sự khai thác của Gia đình tội phạm Shelby trong hậu quả trực tiếp của Thế chiến thứ nhất.', 1, 'bong-ma-anh-quoc5645.jpg', 5, 3, 2, 1, 4, 0, '2023-09-20 09:30:22', '2023-10-13 09:24:41', '2013', 'peaky blinders, bóng ma anh quốc', 0, '1', 'oVzVdvGIC7U');
 
 -- --------------------------------------------------------
 
@@ -363,7 +374,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `movies`
 --
 ALTER TABLE `movies`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
