@@ -6,7 +6,8 @@
                 <div class="row">
                     <div class="col-xs-6">
                         <div class="yoast_breadcrumb hidden-xs"><span><span><a href="">Phim thuộc năm</a> »
-                                    <span class="breadcrumb_last" aria-current="page">{{ $year }}</span></span></span></div>
+                                    <span class="breadcrumb_last" aria-current="page">{{ $year }}</span></span></span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -43,8 +44,14 @@
                                     <span class="episode"><i class="fa fa-play" aria-hidden="true"></i>
                                         @if ($mov->phude == 0)
                                             Phụ đề
+                                            @if ($mov->season != 0)
+                                                - Season {{ $mov->season }}
+                                            @endif
                                         @else
                                             Thuyết minh
+                                            @if ($mov->season != 0)
+                                                - Season {{ $mov->season }}
+                                            @endif
                                         @endif
                                     </span>
                                     <div class="icon_overlay"></div>

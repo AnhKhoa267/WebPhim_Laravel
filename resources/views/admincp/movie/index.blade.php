@@ -25,6 +25,7 @@
                             <th scope="col">Ngày tạo</th>
                             <th scope="col">Ngày cập nhật</th>
                             <th scope="col">Năm</th>
+                            <th scope="col">Season</th>
                             <th scope="col">Top Views</th>
                             <th scope="col">Manage</th>
                         </tr>
@@ -55,8 +56,10 @@
                                         HDCam
                                     @elseif ($cate->resolution == 3)
                                         Cam
-                                    @else
+                                    @elseif ($cate->resolution == 4)
                                         FullHD
+                                    @else
+                                        Trailer 
                                     @endif
                                 </td>
                                 <td>
@@ -85,7 +88,13 @@
                                     ]) !!}
                                 </td>
                                 <td>
-                                    {!! Form::select('topview', ['0' => 'Ngày', '1' => 'Tuần', '2' => 'Tháng'], isset($cate->topview) ? $cate->topview : '', [
+                                    {!! Form::selectRange('season', 0, 20, isset($cate->season) ? $cate->season : '0', [
+                                        'class' => 'select-season',
+                                        'id' => $cate->id,
+                                    ]) !!}
+                                </td>
+                                <td>
+                                    {!! Form::select('topview', ['0' => 'Ngày', '1' => 'Tuần', '2' => 'Tháng', '3' => 'Không'], isset($cate->topview) ? $cate->topview : '', [
                                         'class' => 'select-topview',
                                         'id' => $cate->id,
                                     ]) !!}
