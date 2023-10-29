@@ -10,10 +10,12 @@
                                 <a href="{{ route('homepage') }}"> Trang chủ </a>
                                 »
                                 <span>
-                                    <a href="{{ route('category', [$movie->category->slug]) }}">{{ $movie->category->title }}</a>
+                                    <a
+                                        href="{{ route('category', [$movie->category->slug]) }}">{{ $movie->category->title }}</a>
                                     »
                                     <span>
-                                        <a href="{{ route('country', [$movie->country->slug]) }}">{{ $movie->country->title }}</a>
+                                        <a
+                                            href="{{ route('country', [$movie->country->slug]) }}">{{ $movie->country->title }}</a>
                                         »
                                         <span class="breadcrumb_last" aria-current="page">{{ $movie->title }}</span>
                                     </span>
@@ -66,28 +68,43 @@
                                                 HDCam
                                             @elseif ($movie->resolution == 3)
                                                 Cam
-                                            @else
+                                            @elseif ($movie->resolution == 4)
                                                 FullHD
+                                            @else
+                                                Trailer
                                             @endif
                                         </span>
                                         <span class="episode">
                                             @if ($movie->phude == 0)
                                                 Phụ đề
+                                                @if ($movie->season != 0)
+                                                    - Season {{ $movie->season }}
+                                                @endif
                                             @else
                                                 Thuyết minh
+                                                @if ($movie->season != 0)
+                                                    - Season {{ $movie->season }}
+                                                @endif
                                             @endif
                                         </span>
                                     </li>
                                     <li class="list-info-group-item"><span>Thời lượng</span> : {{ $movie->thoiluong }}</li>
+                                    @if ($movie->season != 0)
+                                        <li class="list-info-group-item"><span>Season</span> : {{ $movie->season }}</li>
+                                    @endif
+                                    <li class="list-info-group-item"><span>Năm</span> : {{ $movie->year }}</li>
                                     <li class="list-info-group-item"><span>Thể loại</span> : <a
                                             href="{{ route('genre', [$movie->genre->slug]) }}"
-                                            rel="category tag">{{ $movie->genre->title }}</a></li>
+                                            rel="category tag">{{ $movie->genre->title }}</a>
+                                    </li>
                                     <li class="list-info-group-item"><span>Danh mục phim</span> : <a
                                             href="{{ route('category', [$movie->category->slug]) }}"
-                                            rel="category tag">{{ $movie->category->title }}</a></li>
+                                            rel="category tag">{{ $movie->category->title }}</a>
+                                    </li>
                                     <li class="list-info-group-item"><span>Quốc gia</span> : <a
                                             href="{{ route('country', [$movie->country->slug]) }}"
-                                            rel="tag">{{ $movie->country->title }}</a></li>
+                                            rel="tag">{{ $movie->country->title }}</a>
+                                    </li>
                                 </ul>
                                 <div class="movie-trailer hidden"></div>
                             </div>
@@ -128,6 +145,21 @@
                             </article>
                         </div>
                     </div>
+                    {{-- Trailer Phim --}}
+                    <div class="section-bar clearfix">
+                        <h2 class="section-title"><span style="color:#ffed4d">Trailer phim</span></h2>
+                    </div>
+                    <div class="entry-content htmlwrap clearfix">
+                        <div class="video-item halim-entry-box">
+                            <article id="post-38424" class="item-content">
+                                <iframe width="100%" height="450"
+                                    src="https://www.youtube.com/embed/{{ $movie->trailer }}" title="YouTube video player"
+                                    frameborder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    allowfullscreen></iframe>
+                            </article>
+                        </div>
+                    </div>
                 </div>
             </section>
             <section class="related-movies">
@@ -153,15 +185,23 @@
                                                 HDCam
                                             @elseif ($hot->resolution == 3)
                                                 Cam
-                                            @else
+                                            @elseif ($hot->resolution == 4)
                                                 FullHD
+                                            @else
+                                                Trailer
                                             @endif
                                         </span>
                                         <span class="episode"><i class="fa fa-play" aria-hidden="true"></i>
                                             @if ($hot->phude == 0)
                                                 Phụ đề
+                                                @if ($hot->season != 0)
+                                                    - Season {{ $hot->season }}
+                                                @endif
                                             @else
                                                 Thuyết minh
+                                                @if ($hot->season != 0)
+                                                    - Season {{ $hot->season }}
+                                                @endif
                                             @endif
                                         </span>
                                         <div class="icon_overlay"></div>
