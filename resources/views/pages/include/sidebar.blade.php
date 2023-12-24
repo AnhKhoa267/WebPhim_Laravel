@@ -25,8 +25,10 @@
                                             HDCam
                                         @elseif ($hot_sidebar->resolution == 3)
                                             Cam
-                                        @else
+                                        @elseif ($hot_sidebar->resolution == 4)
                                             FullHD
+                                        @else
+                                            Trailer
                                         @endif
                                     </span>
                                 </div>

@@ -194,7 +194,20 @@
     <div id='easy-top'></div>
     <script type='text/javascript' src='{{ asset('js/bootstrap.min.js?ver=5.7.2') }}' id='bootstrap-js'></script>
     <script type='text/javascript' src='{{ asset('js/owl.carousel.min.js?ver=5.7.2') }}' id='carousel-js'></script>
-    <script type='text/javascript' src='{{ asset('js/halimtheme-core.min.js?ver=1626273138') }}' id='halim-init-js'>
+    <script type='text/javascript' src='{{ asset('js/halimtheme-core.min.js?ver=1626273138') }}' id='halim-init-js'></script>
+
+    {{-- CMT FB --}}
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v18.0" nonce="SvWQ66CH"></script>
+
+    <script type="text/javascript">
+        $(".watch_trailer").click(function(e) {
+            e.preventDefault(); //Ngăn refresh của href
+            var aid = $(this).attr("href");
+            $('html, body').animate({
+                scrollTop: $(aid).offset().top
+            }, 'slow');
+        });
     </script>
 
     <script type="text/javascript">
