@@ -58,8 +58,10 @@ class MovieController extends Controller
                 $text = 'HDCam';
             }elseif($mov->resolution==3) {
                 $text = 'Cam';
-            }else {
+            }elseif($mov->resolution==4) {
                 $text = 'FullHD';
+            }else {
+                $text = 'Trailer';
             }
             $output.='<div class="item post-37176">
             <a href="'.url('phim/'.$mov->slug).'" title="'.$mov->title.'">

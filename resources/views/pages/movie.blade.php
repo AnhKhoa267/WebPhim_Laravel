@@ -46,12 +46,16 @@
                             <div class="movie-poster col-md-3">
                                 <img class="movie-thumb" src="{{ asset('uploads/movie/' . $movie->image) }}"
                                     alt="{{ $movie->title }}">
-                                <div class="bwa-content">
-                                    <div class="loader"></div>
-                                    <a href="{{ route('watch') }}" class="bwac-btn">
-                                        <i class="fa fa-play"></i>
-                                    </a>
-                                </div>
+                                @if ($movie->resolution != 5)
+                                    <div class="bwa-content">
+                                        <div class="loader"></div>
+                                        <a href="{{ route('watch') }}" class="bwac-btn">
+                                            <i class="fa fa-play"></i>
+                                        </a>
+                                    </div>
+                                @else
+                                    <a href="#watch_trailer" style="display: block;" class="btn btn-primary watch_trailer">Xem Trailer</a>
+                                @endif
                             </div>
                             <div class="film-poster col-md-9">
                                 <h1 class="movie-title title-1"
@@ -74,19 +78,21 @@
                                                 Trailer
                                             @endif
                                         </span>
-                                        <span class="episode">
-                                            @if ($movie->phude == 0)
-                                                Phụ đề
-                                                @if ($movie->season != 0)
-                                                    - Season {{ $movie->season }}
+                                        @if ($movie->resolution != 5)
+                                            <span class="episode">
+                                                @if ($movie->phude == 0)
+                                                    Phụ đề
+                                                    @if ($movie->season != 0)
+                                                        - Season {{ $movie->season }}
+                                                    @endif
+                                                @else
+                                                    Thuyết minh
+                                                    @if ($movie->season != 0)
+                                                        - Season {{ $movie->season }}
+                                                    @endif
                                                 @endif
-                                            @else
-                                                Thuyết minh
-                                                @if ($movie->season != 0)
-                                                    - Season {{ $movie->season }}
-                                                @endif
-                                            @endif
-                                        </span>
+                                            </span>
+                                        @endif
                                     </li>
                                     <li class="list-info-group-item"><span>Thời lượng</span> : {{ $movie->thoiluong }}</li>
                                     @if ($movie->season != 0)
@@ -145,21 +151,37 @@
                             </article>
                         </div>
                     </div>
-                    {{-- Trailer Phim --}}
+                    @if ($movie->trailer != null)
+                        {{-- Trailer Phim --}}
+                        <div class="section-bar clearfix">
+                            <h2 class="section-title"><span style="color:#ffed4d">Trailer phim</span></h2>
+                        </div>
+                        <div class="entry-content htmlwrap clearfix">
+                            <div class="video-item halim-entry-box">
+                                <article id="watch_trailer" class="item-content">
+                                    <iframe width="100%" height="450"
+                                        src="https://www.youtube.com/embed/{{ $movie->trailer }}"
+                                        title="YouTube video player" frameborder="0"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                        allowfullscreen></iframe>
+                                </article>
+                            </div>
+                        </div>
+                    @endif
+
+                    {{-- Bình luận Phim --}}
                     <div class="section-bar clearfix">
-                        <h2 class="section-title"><span style="color:#ffed4d">Trailer phim</span></h2>
+                        <h2 class="section-title"><span style="color:#ffed4d">Bình luận phim</span></h2>
                     </div>
                     <div class="entry-content htmlwrap clearfix">
+                        @php
+                            $current_url = Request::url();
+                        @endphp
                         <div class="video-item halim-entry-box">
                             <article id="post-38424" class="item-content">
-                                <iframe width="100%" height="450"
-                                    src="https://www.youtube.com/embed/{{ $movie->trailer }}" title="YouTube video player"
-                                    frameborder="0"
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                    allowfullscreen></iframe>
+                                <div class="fb-comments" data-href="{{$current_url}}" data-width="100%" data-numposts="10"></div>
                             </article>
                         </div>
-                    </div>
                 </div>
             </section>
             <section class="related-movies">
